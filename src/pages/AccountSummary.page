@@ -1,0 +1,25 @@
+<apex:page sidebar="false" standardController="Account">
+    <apex:form >
+        
+        <apex:pageBlock title="Account Summary" >
+            <apex:pageBlockSection title="Contact Info">
+                <apex:outputField value="{! Account.Name }"/>
+                <apex:outputField value="{! Account.Phone }"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Other Info">
+                <apex:outputField value="{! Account.Industry }"/>
+                <apex:outputField value="{! Account.AnnualRevenue }"/>
+                <apex:outputField value="{! Account.Ownership }"/>
+                <apex:outputField value="{! Account.CreatedDate }"/>
+            </apex:pageBlockSection>        
+        </apex:pageBlock>
+        <apex:commandButton action="{! Edit }" value="Edit"></apex:commandButton>
+        <apex:pageBlock title="Contacts">
+           <apex:pageBlockTable value="{!Account.contacts}" var="contact">
+              <apex:column value="{!contact.Name}"/>
+              <apex:column value="{!contact.Title}"/>
+              <apex:column value="{!contact.Phone}"/>
+           </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

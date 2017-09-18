@@ -1,0 +1,26 @@
+<aura:component >
+    <aura:attribute name="val1" type="Integer" default="10" />
+    <aura:attribute name="val2" type="Integer" default="20" />
+    {! v.val1 } + {! v.val2 } = {! v.sum}
+    <aura:attribute name="sum" type="Integer" />
+    <br />
+    <ui:button label="Click" press="{! c.add }" />
+    <br />
+    <aura:attribute name="whom" type="String" default="world"/>
+    Hello {!v.whom}!
+    <br />
+    <div class="white">
+        Hello, HTML!
+    </div>
+    <br />
+    <h2>Check out the style in this list.</h2>
+    
+    <ul>
+        <li class="red">I'm red.</li>
+        <li class="blue">I'm blue.</li>
+        <li class="green">I'm green.</li>
+    </ul>
+    
+    
+
+</aura:component>

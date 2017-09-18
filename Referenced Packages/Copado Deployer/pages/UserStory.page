@@ -1,0 +1,75 @@
+<apex:page standardController="copado__User_Story__c" extensions="copado.UserStoryExt">
+<apex:slds />
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+      <head>
+        <c:GAnalytics />
+        
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/libs/jquery.min.1.10.2.js')}" />
+        <script>
+            ga('send', 'pageview', {
+              'page': '/UserStory',
+              'title': 'User Story'
+            });
+            
+            var gitRepo = "{!JSENCODE(df.copado__Git_Repository__c)}"
+            var commitCount = "{!commitCount}"
+            var branchBase = gitRepo ? "{!JSENCODE(df.Git_Repository__r.copado__Branch_Base_URL__c)}" : null;
+            var readyFunc = function(){
+              var pullButton = $('<input id="customPullButton" type="button" class="btn" value="{!JSENCODE($Label.copado__create_pull_request)}" onclick="pullRequest();"/>');
+              if(branchBase != null && branchBase != '' && "{!copado__User_Story__c.Id}" != null && "{!copado__User_Story__c.Id}" != '' && commitCount > 0 && $('h3:contains("{!JSENCODE($ObjectType.copado__Pull_Request__c.Label)}")').first().size() > 0){
+                pullButton.appendTo($('[Id^=topButtonRow]'));
+              }
+            }
+            document.onreadystatechange = function(){
+                 if(document.readyState === 'complete'){
+                    readyFunc();
+                 }
+            }
+            
+            var pullRequest = function(){             
+              console.log('branchBase',branchBase);
+              console.log('targetBranch','{!JSENCODE(targetBranch)}');
+              if(branchBase != null && branchBase != '' ){                
+                var win = window.open(branchBase.replace('tree/','compare/{!JSENCODE(targetBranch)}...feature/{!JSENCODE(copado__User_Story__c.Name)}?expand=1'));
+                if (win) {
+                    //Browser has allowed it to be opened
+                    win.focus();
+                } else {
+                    //Browser has blocked it
+                    alert('{!JSENCODE($Label.copado__popup_blocker_message)}');
+                }
+              }else{
+
+              }
+            }
+            
+        </script>   
+      </head>
+      
+      <body>
+        <div class="slds-m-horizontal_medium">
+          <apex:outputPanel rendered="{!hasActiveDeploymentFlow}">
+            <div class="slds-m-vertical_x-small">
+              <div class="slds-grid">
+                <div class="slds-tabs--path" role="application">
+                  <ul class="slds-tabs--path__nav" role="tablist">
+                    <apex:repeat value="{!visualFlowSteps}" var="step">
+                      <li class="slds-tabs--path__item {!IF(visualFlowSteps.size == 1,'slds-is-complete slds-is-won',step.style)}" role="presentation">
+                        <a class="slds-tabs--path__link" id="tabs-path-93" aria-controls="content-path-1" aria-selected="false" tabindex="-1" role="tab" href="javascript:void(0);" aria-live="assertive">
+                          <span class="slds-tabs--path__title">{!step.environment}</span>
+                        </a>
+                      </li>
+                    </apex:repeat>                     
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </apex:outputPanel>
+
+          <apex:detail subject="{!copado__User_Story__c.Id}" relatedList="true" title="true" showChatter="true" inlineEdit="true"/> 
+        </div>
+      </body> 
+  </html>
+</apex:page>
+
+<!--<input value="Create Pull Request" class="btn" name="create_pull_request" title="Create Pull Request" type="button" onclick="if (window.invokeOnClickJS_00b0Y000000G6cW) window.invokeOnClickJS_00b0Y000000G6cW(this); else if (parent.window.invokeOnClickJS_00b0Y000000G6cW) parent.window.invokeOnClickJS_00b0Y000000G6cW(this); return false">-->

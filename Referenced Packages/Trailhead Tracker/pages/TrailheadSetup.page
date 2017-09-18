@@ -1,0 +1,62 @@
+<apex:page controller="trailheadapp.TrailheadSetupController">
+    <apex:sectionHeader title="Trailhead Tracker" subtitle="Setup" description="Welcome to the Trailhead Tracker for reporting on your organization's user Trailhead Badges."/>
+    <apex:pageMessages /><br/>
+    
+    <apex:pageBlock title="Feedback">    
+        
+        <apex:pageBlockSection columns="1" id="feedback">
+            <p>Thank you for using the Trailhead Reporting app. We'd love to hear from you! Please fill out this <a href="https://salesforcedevs.getfeedback.com/r/2LobhDLQ" target="_blank">brief two minute survey</a> 
+                to let us know what you think! Your thoughts are important to the development of the product.
+            </p>
+        </apex:pageBlockSection>  
+        
+    </apex:pageBlock>
+    <apex:form >
+        <apex:pageBlock title="Trailhead Settings">
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!saveSettings}" value="Save"/>
+            </apex:pageBlockButtons>            
+            
+            <apex:pageBlockSection title="Credentials & Settings" columns="1" id="creds">
+                <p>To authenticate and sync data with the Trailhead API, you need to enter a username, password and security token <b>for this org</b>.
+                This is typically some sort of integration user. Remember, if this user's credentials change, you'll need to update these setting 
+                so that the sync can run properly.</p>
+                <p>There is also an option to log API sync events to a custom object for reporting purposes. By default this is initially set to only log errors. However, you
+                    can change this setting to INFO (only information), ALL (information and errors) or OFF (no logging). Please keep in mind
+                    that INFO and ALL will create many records in your org so you may want to keep an eye on your storage usage. To view the logs, 
+                    simply run the <i>Debug Logs</i> report in the Trailhead folder.</p>
+            </apex:pageBlockSection><br/>
+            
+            <apex:pageBlockSection columns="2">
+                <apex:inputField value="{!config.trailheadapp__Username__c}"/>
+                <apex:inputField value="{!config.trailheadapp__Password__c}"/>
+                <apex:inputField value="{!config.trailheadapp__Debug_Level__c}" />
+                <apex:inputField value="{!config.trailheadapp__Security_Token__c}"/>
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:form>
+    
+    <apex:form >
+        <apex:pageBlock title="Trailhead Synchronization Settings">
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!saveSync}" value="Save"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection title="Scheduled Task" columns="1" id="task">
+                
+                <p>We will fetch all of the Trailhead data for your org on a daily based using a schedule task. Please choose the time of day to schedule your task.</p>
+                
+                <apex:selectList value="{!scheduledTime}" size="1">
+                    <apex:selectOptions value="{!availableTimes}"/>
+                </apex:selectList>
+                
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+        
+    </apex:form>
+    
+</apex:page>

@@ -1,0 +1,11 @@
+<aura:component controller="OpportunityController">
+    <aura:attribute name="opportunities" type="Opportunity[]"/>
+    
+    <ui:button label="Get Opportunities" press="{!c.getOpps}"/>
+    <table>
+        <tr><td>Opportunity ID</td><td>Opportunity Name</td><td>Opportunity Close Date</td></tr>
+        <aura:iteration var="opportunity" items="{!v.opportunities}">
+            <tr><td>{!opportunity.Id}</td><td>{!opportunity.Name}</td><td>{!opportunity.CloseDate}</td></tr>
+        </aura:iteration>
+    </table>
+</aura:component>

@@ -1,0 +1,7 @@
+<aura:component extends="c:superComp">
+    <aura:set attribute="v.description">
+        SET IN SUB COMP
+    </aura:set>
+    <p>sub.cmp description: {!v.description}</p>
+    TEST DESCRIPTION
+</aura:component>

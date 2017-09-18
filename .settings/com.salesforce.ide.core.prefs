@@ -1,0 +1,15 @@
+eclipse.preferences.version=1
+endpointApiVersion=38.0
+endpointEnvironment=Production/Developer Edition
+endpointServer=login.salesforce.com
+httpsProtocol=true
+ideVersion=38.0
+keependpoint=false
+metadataFormatVersion=38.0
+namespacePrefix=devs
+packageName=unpackaged
+preferToolingDeployment=true
+projectIdentifier=IDE2036668339630064164
+readTimeout=400
+sessionId=
+username=devs.srini@gmail.com

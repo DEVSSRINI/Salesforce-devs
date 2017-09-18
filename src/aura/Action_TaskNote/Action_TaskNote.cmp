@@ -1,0 +1,6 @@
+<aura:component implements="force:lightningQuickAction,force:hasRecordId,force:hasSObjectName" >
+	<aura:attribute name="recordId" type="String" />
+    <aura:attribute name="task" type="Task" />
+
+	
+</aura:component>
